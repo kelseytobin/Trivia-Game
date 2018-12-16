@@ -34,3 +34,36 @@ var questions = [{
   choices: ["7", "5", "3", "4"],
   correct: 2
 }];
+
+//create displayTrivia function
+function displayTrivia() {
+    triviaTimer();
+    //insert first question in question div in html
+    $("#question").html(potterQuestions[0].question);
+    question++;
+    //create var for choices array
+    var choicesArr = potterQuestions[0].choices
+    //create for loop to run through choices array 
+    for (let i = 0; i < choicesArr.length; i++) {
+      //create buttons
+      var button = $('<button>');
+      //insert choices text to buttons
+      button.text(choicesArr[i]);
+      //store choices data in buttons
+      button.attr('data-id', i);
+      //insert choices buttons into choices div
+      $('#choices').append(button);
+     }
+  };
+  
+  
+  //user begins playing
+  $(document).ready(function(){
+      //user clicks start, button is then hidden and trivia is displayed
+      $("#btn-start").click(function(){
+        $(this).hide(); 
+        displayTrivia();
+        }); 
+  
+  
+  });
