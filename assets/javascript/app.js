@@ -1,19 +1,12 @@
-//create global var
-var userPick;
+//global var
+var myTimer;
+var timeLeft;
+var userGuess;
+var button;
 
-var correctAnswer = 0;
-
-var incorrectAnswer = 0;
-
-var question = 0;
-
-var images;
-
-//create questions as an object
-var potterQuestions = [
-  {
-    question:
-      "What plant does Harry eat to breathe underwater in the Triwizard Tournament?",
+//questions
+var potterQuestions = [{
+    question: "What plant does Harry eat to breathe underwater in the Triwizard Tournament?",
     choices: ["Lakeweed", "Gillyweed", "Breatheme", "Mandrake"],
     correct: 1
   },
@@ -33,8 +26,7 @@ var potterQuestions = [
     correct: 3
   },
   {
-    question:
-      "What enchanted object can transport someone to another location?",
+    question: "What enchanted object can transport someone to another location?",
     choices: ["Portkey", "A Fireplace", "A Boot", "An Elevator"],
     correct: 0
   },
@@ -45,51 +37,64 @@ var potterQuestions = [
   }
 ];
 
-//create timer
-//time value of 30000 is set
-//time value is inserted into html span div
-function triviaTimer(secs, count) {
+//display trivia function
+function displayTrivia() {
+  $("#question").html(potterQuestions[0].question);
+  question++;
+  var choicesArr = potterQuestions[0].choices;
+  for (var i = 0; i < choicesArr.length; i++) {
+    button = $("<button>");
+    button.text(choicesArr[i]);
+    button.attr("data-id", i);
+    $("#choices").append(button);
+  }
+  // button.addEventListener("click", () => {
+  //   console.log(button);
+  // })
+};
+
+function startTimer() {
+  timeLeft = 31;
+  myTimer = setInterval(decrementTimeLeft, 1000);
+}
+
+function decrementTimeLeft() {
+  timeLeft--;
+  updateHTML(timeLeft, "count-down");
+}
+
+
+//updates html
+function updateHTML(secs, count) {
   var myTime = document.getElementById(count);
-  $("#timer").html("Time remaining: " + "00:" + secs + " seconds");
+  $("#count-down").html("Time remaining: " + "00:" + secs + " seconds");
   if (secs < 1) {
     clearTimeout(myTimer);
     $("#timer").html("<h2>Times Up!</h2>");
-    //insert correct answer and call next question function?
-
-
+    console.log(secs);
   }
-  secs--;
-  var myTimer = setTimeout("triviaTimer("+secs+", "+count")", 30000);
 };
 
-//create displayTrivia function
-function displayTrivia() {
-  triviaTimer();
-  //insert first question in question div in html
-  $("#question").html(potterQuestions[0].question);
-  question++;
-  //create var for choices array
-  var choicesArr = potterQuestions[0].choices;
-  //create for loop to run through choices array
-  for (let i = 0; i < choicesArr.length; i++) {
-    //create buttons
-    var button = $("<button>");
-    //insert choices text to buttons
-    button.text(choicesArr[i]);
-    //store choices data in buttons
-    button.attr("data-id", i);
-    //insert choices buttons into choices div
-    $("#choices").append(button);
-  }
-}
+// function trackUserInput() {
 
-//user begins playing
-$(document).ready(function() {
-  //user clicks start, button is then hidden and trivia is displayed
-  $("#btn-start").click(function() {
-    $(this).hide();
+//   if (userGuess === potterQuestions.correct) {
+//     $("#correct").html("Correct! The answer is " + potterQuestions.correct);
+//   } else {
+//     $("#incorrect").html("Nope! The answer is " + potterQuestions.correct);
+//   }
+// };
+
+
+//execute
+$(document).ready(function () {
+  $("#btn-start").click(function () {
+    $("#btn-start").hide();
+
     displayTrivia();
-    triviaTimer(30, "timer");
+
+    startTimer();
+
+
+
   });
-  
 });
