@@ -51,7 +51,7 @@ function displayTrivia() {
     $("#choices").append(button);
     $(button).click(function () {
       // assign value of button to userGuess
-      input = button.data("id", i);
+      input = button.data("id");
       console.log(input);
     });
 
@@ -80,11 +80,11 @@ function updateHTML(secs, count) {
 };
 
 function compare(input) {
-  if (input === potterQuestions.correct) {
-    $("#correct").html("Correct! The answer is " + potterQuestions.correct);
+  if (input === potterQuestions[counter].correct) {
+    $("#correct").html("Correct! The answer is " + potterQuestions[counter].correct);
     counter++;
   } else {
-    $("#incorrect").html("Nope! The answer is " + potterQuestions.correct);
+    $("#incorrect").html("Nope! The answer is " + potterQuestions[counter].correct);
     counter++;
   }
 };
