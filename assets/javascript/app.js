@@ -47,13 +47,11 @@ function displayTrivia() {
     // assign jqueary button to variable
     var button = $("<button>");
     button.text(choicesArr[i]);
-    button.attr("data-id", i);
+    button.data("id", i);
     $("#choices").append(button);
-    console.log("data-id", i);
-    console.log(choicesArr[i]);
     $(button).click(function () {
       // assign value of button to userGuess
-      input = button.attr("data-id", i)
+      input = button.data("id", i);
       console.log(input);
     });
 
