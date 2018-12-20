@@ -40,21 +40,17 @@ var potterQuestions = [{
 //display trivia function
 function displayTrivia() {
   startTimer();
-  $("#question").html(potterQuestions[counter].questions);
+  $("#question").html(potterQuestions[counter].question);
   question++;
   var choicesArr = potterQuestions[counter].choices;
   for (var i = 0; i < choicesArr.length; i++) {
-    // assign jqueary button to variable
     var button = $("<button>");
     button.text(choicesArr[i]);
     button.data("id", i);
     $("#choices").append(button);
-    $(button).click(function () {
-      // assign value of button to userGuess
+    $(button).click(function() {
       input = button.data("id");
-      console.log(input);
-    });
-
+    })
   }
 };
 
@@ -80,13 +76,13 @@ function updateHTML(secs, count) {
 };
 
 function compare(input) {
-  if (input === potterQuestions[counter].correct) {
-    $("#correct").html("Correct! The answer is " + potterQuestions[counter].correct);
-    counter++;
-  } else {
-    $("#incorrect").html("Nope! The answer is " + potterQuestions[counter].correct);
-    counter++;
-  }
+//   if (input === potterQuestions[counter].correct) {
+//     $("#correct").html("Correct! The answer is " + potterQuestions[counter].correct);
+//     counter++;
+//   } else {
+//     $("#incorrect").html("Nope! The answer is " + potterQuestions[counter].correct);
+//     counter++;
+//   }
 };
 
 
@@ -97,7 +93,7 @@ $(document).ready(function () {
 
     displayTrivia();
 
-    compare();
+    // compare();
 
 
 
