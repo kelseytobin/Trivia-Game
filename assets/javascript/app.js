@@ -1,8 +1,8 @@
 //global var
 var myTimer;
 var timeLeft;
-var userGuess;
-var button;
+var input;
+var counter = 0;
 
 //questions
 var potterQuestions = [{
@@ -39,18 +39,25 @@ var potterQuestions = [{
 
 //display trivia function
 function displayTrivia() {
-  $("#question").html(potterQuestions[0].question);
+  startTimer();
+  $("#question").html(potterQuestions[counter].questions);
   question++;
-  var choicesArr = potterQuestions[0].choices;
+  var choicesArr = potterQuestions[counter].choices;
   for (var i = 0; i < choicesArr.length; i++) {
-    button = $("<button>");
+    // assign jqueary button to variable
+    var button = $("<button>");
     button.text(choicesArr[i]);
     button.attr("data-id", i);
     $("#choices").append(button);
+    console.log("data-id", i);
+    console.log(choicesArr[i]);
+    $(button).click(function () {
+      // assign value of button to userGuess
+      input = button.attr("data-id", i)
+      console.log(input);
+    });
+
   }
-  // button.addEventListener("click", () => {
-  //   console.log(button);
-  // })
 };
 
 function startTimer() {
@@ -71,18 +78,18 @@ function updateHTML(secs, count) {
   if (secs < 1) {
     clearTimeout(myTimer);
     $("#timer").html("<h2>Times Up!</h2>");
-    console.log(secs);
   }
 };
 
-// function trackUserInput() {
-
-//   if (userGuess === potterQuestions.correct) {
-//     $("#correct").html("Correct! The answer is " + potterQuestions.correct);
-//   } else {
-//     $("#incorrect").html("Nope! The answer is " + potterQuestions.correct);
-//   }
-// };
+function compare(input) {
+  if (input === potterQuestions.correct) {
+    $("#correct").html("Correct! The answer is " + potterQuestions.correct);
+    counter++;
+  } else {
+    $("#incorrect").html("Nope! The answer is " + potterQuestions.correct);
+    counter++;
+  }
+};
 
 
 //execute
@@ -92,7 +99,7 @@ $(document).ready(function () {
 
     displayTrivia();
 
-    startTimer();
+    compare();
 
 
 
