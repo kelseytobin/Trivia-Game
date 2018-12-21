@@ -58,8 +58,7 @@ function displayTrivia() {
 
    $(".btn-answer").click(function (event) {
     input = $(this).data("answer");
-    console.log($(this).data("answer"));
-     compare(input);
+    compare(input);
    })
 };
 
@@ -82,8 +81,19 @@ function updateHTML(secs, count) {
   if (secs < 1) {
     clearTimeout(myTimer);
     $("#timer").html("<h2>Times Up!</h2>");
-  }
+    $("#timer").empty();
+    // nextQ();
+  } 
 };
+
+//next question
+// function nextQ() {
+//   $("#ansers").empty();
+//   counter++;
+//   timeLeft = 30;
+//   startTimer();
+//   displayTrivia();
+// };
 
 // compare user input again correct answer
 function compare(input) {
@@ -92,9 +102,13 @@ function compare(input) {
   var correctAnswer = currentQuestion.choices[currentQuestion.correct];
   
   if (input === correctAnswer) {
-    console.log("correct");
+    clearTimeout(myTimer);
+    $("#right").html("Correct! The answer is " + correctAnswer);
+    // nextQ();
   } else {
-    console.log("wrong");
+    clearTimeout(myTimer);
+    $("#wrong").html("Nope! The answer is " + correctAnswer);
+    // nextQ();
   }
 
 };
