@@ -8,7 +8,7 @@ var counter = 0;
 var potterQuestions = [{
     question: "What plant does Harry eat to breathe underwater in the Triwizard Tournament?",
     choices: ["Lakeweed", "Gillyweed", "Breatheme", "Mandrake"],
-    correct: "Gillyweed",
+    correct: 1,
   },
   {
     question: "Who guards the Gryffindor common room?",
@@ -18,22 +18,22 @@ var potterQuestions = [{
       "The Fat Lady",
       "Nearly Headless Nick"
     ],
-    correct: "Moaning Myrtle",
+    correct: 2,
   },
   {
     questions: "What did Hagrid name his dragon?",
     choices: ["Buckbeak", "Fluffy", "Hedwig", "Norbert"],
-    correct: "Norbert",
+    correct: 3,
   },
   {
     question: "What enchanted object can transport someone to another location?",
     choices: ["Portkey", "A Fireplace", "A Boot", "An Elevator"],
-    correct: "Portkey",
+    correct: 0,
   },
   {
     question: "How many Deathly Hallows are there?",
     choices: ["7", "5", "3", "4"],
-    correct: "3",
+    correct: 2,
   }
 ];
 
@@ -48,15 +48,20 @@ function displayTrivia() {
     //adds class to the button
     btn.addClass("btn-answer", className);
     //adds a data attribute
-    btn.attr("id", potterQuestions[counter].choices[i]);
+    btn.attr("data-answer", potterQuestions[counter].choices[i]);
     //labels button
     btn.text(choicesArr[i]);
     //adds button to the button view div
     $("#answers").append(btn);
-    $("#answers").click(function () {
-      compare();
-    })
+   
   }
+
+   $("#answers").click(function (event) {
+
+    input = $(this).attr("data-answer");
+    console.log($(this).attr("data-answer"));
+     compare();
+   })
 };
 
 
@@ -81,16 +86,14 @@ function updateHTML(secs, count) {
   }
 };
 
-//compare user input again correct answer
+// compare user input again correct answer
 function compare(input) {
-  input = $(this).attr("id");
-  console.log(input);
-  // var correctAnswer = potterQuestions[counter].correct;
-  // if (input === correctAnswer) {
-  //   console.log("correct");
-  // } else {
-  //   console.log("wrong");
-  // }
+  var correctAnswer = potterQuestions[counter].choices.indexOf(correct);
+  if (input === correctAnswer) {
+    console.log("correct");
+  } else {
+    console.log("wrong");
+  }
 
 };
 
