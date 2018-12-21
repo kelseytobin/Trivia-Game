@@ -48,7 +48,7 @@ function displayTrivia() {
     //adds class to the button
     btn.addClass("btn-answer", className);
     //adds a data attribute
-    btn.attr("data-answer", potterQuestions[counter].choices[i]);
+    btn.data("answer", potterQuestions[counter].choices[i]);
     //labels button
     btn.text(choicesArr[i]);
     //adds button to the button view div
@@ -56,11 +56,10 @@ function displayTrivia() {
    
   }
 
-   $("#answers").click(function (event) {
-
-    input = $(this).attr("data-answer");
-    console.log($(this).attr("data-answer"));
-     compare();
+   $(".btn-answer").click(function (event) {
+    input = $(this).data("answer");
+    console.log($(this).data("answer"));
+     compare(input);
    })
 };
 
@@ -88,7 +87,10 @@ function updateHTML(secs, count) {
 
 // compare user input again correct answer
 function compare(input) {
-  var correctAnswer = potterQuestions[counter].choices.indexOf(correct);
+  var currentQuestion = potterQuestions[counter];
+  
+  var correctAnswer = currentQuestion.choices[currentQuestion.correct];
+  
   if (input === correctAnswer) {
     console.log("correct");
   } else {
